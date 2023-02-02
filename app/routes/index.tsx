@@ -5,9 +5,9 @@ export default function Index() {
     <>
       <Navigator />
       <main className="flex items-center justify-center">
-        <div className="w-full max-w-7xl ">
+        <div className="w-full max-w-5xl">
           <section className="mt-20 flex space-x-10">
-            <div className="w-full ">
+            <div className="w-full">
               <img src="images/seven-blog.svg" className="mb-4 h-14" />
               <p>
                 Lorem Ipsum is simply dummy text of the printing and <br />
@@ -32,25 +32,31 @@ export default function Index() {
               </div>
             </div>
             <div className="flex w-full">
-              <div>
-                <div>
-                  <p>categorias</p>
-                  <ul>
-                    <li>
-                      <a href="#">lorem</a>
-                    </li>
-                    <li>
-                      <a href="#">turpis</a>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <a href="#">ipsum</a>
-                    </li>
-                    <li>
-                      <a href="#">varius</a>
-                    </li>
-                  </ul>
+              <div className="bg-gray-200 py-4 px-16">
+                <p className="text-left font-bold text-blog-blue-300">
+                  categorias
+                </p>
+                <div className="mt-2 flex items-center justify-start space-x-8">
+                  <div>
+                    <ul className="space-y-4">
+                      <li>
+                        <a href="#">lorem</a>
+                      </li>
+                      <li>
+                        <a href="#">turpis</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul className="space-y-4">
+                      <li>
+                        <a href="#">ipsum</a>
+                      </li>
+                      <li>
+                        <a href="#">varius</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
