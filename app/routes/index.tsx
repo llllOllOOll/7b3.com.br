@@ -1,97 +1,43 @@
-import Navigator from "~/components/Navigator/navigator";
+import Navigator from "~/components/navigator/navigator";
 
 export default function Index() {
   return (
     <>
-      <Navigator />
-      <main className="flex items-center justify-center">
-        <div className="w-full max-w-5xl">
-          <section className="mt-20 flex space-x-10">
-            <div className="w-full">
-              <img src="images/seven-blog.svg" className="mb-4 h-14" />
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and <br />
-                typesetting industry. Lorem Ipsum has been the industry <br />
-                standard dummy text ever since the 1500s, when an un
-              </p>
-              <div className="mt-4">
-                <div className=" flex items-center space-x-4">
-                  <a href="#">
-                    <img src="images/twitter.svg" />
-                  </a>
-                  <a href="#">
-                    <img src="images/youtube.svg" />
-                  </a>
-                  <a href="#">
-                    <img src="images/linkedin.svg" />
-                  </a>
-                  <a href="#">
-                    <img src="images/instagram.svg" />
-                  </a>
-                </div>
+      <main className="flex flex-col items-center justify-center">
+        <div className="w-full bg-gradient-to-r from-blog-primary to-blog-secondary">
+          <Navigator />
+          <section className="mt-52 flex items-center justify-center space-x-10">
+            <div>
+              <div>
+                <img src="images/seven.svg" />
               </div>
-            </div>
-            <div className="flex w-full">
-              <div className="bg-gray-200 py-4 px-16">
-                <p className="text-left font-bold text-blog-blue-300">
-                  categorias
-                </p>
-                <div className="mt-2 flex items-center justify-start space-x-8">
-                  <div>
-                    <ul className="space-y-4">
-                      <li>
-                        <a href="#">lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">turpis</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="space-y-4">
-                      <li>
-                        <a href="#">ipsum</a>
-                      </li>
-                      <li>
-                        <a href="#">varius</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className="mt-20 mb-20">
-            <div className="flex items-center  space-x-8">
-              <div className="h-96 w-full  rounded-md bg-gray-200 p-6">
-                <div className="mb-4">Last post</div>
-                <div className="mb-4 text-2xl">
-                  <h2>VSCode vs LunarVim. Which is better?</h2>
-                </div>
-                <div>
-                  lkjfklajsdklf skfjlaskdjfklajsdf alksjdfljasdfkj
-                  asdjfklasdklfja alskdjfl;asjdlfajsldfja;lsdjfa:e .
-                  alsdfklajsldfja;j akjskldjf;asjd;fkaj;lsdjflasjdfkla
-                  aksdjflkajsdklfja;l;kfja
-                </div>
-                <div>More</div>
-              </div>
-              <div className="h-96 w-full  rounded-md bg-gray-200 p-6">
-                <div className="mb-4">Last post</div>
-                <div className="mb-4 text-2xl">
-                  <h2>VSCode vs LunarVim. Which is better?</h2>
-                </div>
-                <div>
-                  lkjfklajsdklf skfjlaskdjfklajsdf alksjdfljasdfkj
-                  asdjfklasdklfja alskdjfl;asjdlfajsldfja;lsdjfa
-                  alsdfklajsldfja;j akjskldjf;asjd;fkaj;lsdjflasjdfkla
-                  aksdjflkajsdklfja;l;kfja
-                </div>
-                <div>More</div>
+              <div className="mt-40 mb-8">
+                <ul className="flex items-center justify-center space-x-3 ">
+                  <li>
+                    <img src="images/twitter.png" />
+                  </li>
+                  <li>
+                    <img src="images/instagram.png" />
+                  </li>
+                  <li>
+                    <img src="images/youtube.png" />
+                  </li>
+                  <li>
+                    <img src="images/linkedin.png" />
+                  </li>
+                </ul>
               </div>
             </div>
           </section>
         </div>
+
+        <section className="mt-20 mb-20">
+          <h2>POSTS RECENTES</h2>
+          <div>
+            <div></div>
+            <div></div>
+          </div>
+        </section>
       </main>
       <footer className="">
         <div className="h-80 bg-blog-black-700">Footer</div>
