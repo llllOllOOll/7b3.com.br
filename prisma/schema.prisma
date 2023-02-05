@@ -41,6 +41,10 @@ model Post {
   slug     String @id
   title    String
   markdown String
+  imagePost String
+  author String
+  source String
+  avatar String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
