@@ -12,11 +12,19 @@ export const action = async ({ request }: ActionArgs) => {
   const title = formData.get("title");
   const slug = formData.get("slug");
   const markdown = formData.get("markdown");
+  const author = formData.get("author");
+  const source = formData.get("source");
+  const imagePost = formData.get("imagePost");
+  const avatar = formData.get("avatar");
 
   const errors = {
     title: title ? null : "Title is required",
     slug: slug ? null : "Slug is required",
     markdown: markdown ? null : "Markdown is required",
+    author: author ? null : "Author is required",
+    source: source ? null : "Source is required",
+    imagePost: imagePost ? null : "Image is required",
+    avatar: avatar ? null : "Avatar is required",
   };
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
@@ -26,8 +34,12 @@ export const action = async ({ request }: ActionArgs) => {
   invariant(typeof title === "string", "title must be a string");
   invariant(typeof slug === "string", "slug must be a string");
   invariant(typeof markdown === "string", "markdown must be a string");
+  invariant(typeof author === "string", "author must be a string");
+  invariant(typeof source === "string", "source must be a string");
+  invariant(typeof imagePost === "string", "image must be a string");
+  invariant(typeof avatar === "string", "avatar must be a string");
 
-  await createPost({ title, slug, markdown });
+  await createPost({ title, slug, markdown, author, source, imagePost, avatar });
 
   return redirect("/posts/admin");
 };
@@ -51,6 +63,47 @@ export default function NewPost() {
           <input type="text" name="title" className={inputClassName} />
         </label>
       </p>
+
+      <p>
+        <label>
+          Post Author:{" "}
+          {errors?.author ? (
+            <em className="text-red-600">{errors.author}</em>
+          ) : null}
+          <input type="text" name="author" className={inputClassName} />
+        </label>
+        </p>
+
+      <p>
+        <label>
+          Post Source:{" "}
+          {errors?.source ? (
+            <em className="text-red-600">{errors.source}</em>
+          ) : null}
+          <input type="url" name="source" className={inputClassName} />
+        </label>
+        </p>
+
+      <p>
+        <label>
+          Post Image:{" "}
+          {errors?.imagePost ? (
+            <em className="text-red-600">{errors.imagePost}</em>
+          ) : null}
+          <input type="url" name="imagePost" className={inputClassName} />
+        </label>
+        </p>
+
+
+      <p>
+        <label>
+          Post Avatar:{" "}
+          {errors?.avatar ? (
+            <em className="text-red-600">{errors.avatar}</em>
+          ) : null}
+          <input type="url" name="avatar" className={inputClassName} />
+        </label>
+        </p>
       <p>
         <label>
           Post Slug:{" "}

@@ -1,7 +1,15 @@
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
 import Navigator from "~/components/navigator/navigator";
+import { getPosts } from "~/models/post.server";
+
+export const loader = async () => {
+  return json({ posts: await getPosts() });
+};
 
 export default function Index() {
+  const { posts } = useLoaderData<typeof loader>();
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center">
@@ -37,14 +45,20 @@ export default function Index() {
           </h2>
           <div className="mt-24  flex gap-8 px-96">
             <Card
-              title={"Pai e filha brigam por codigo"}
-              author={"Luna Miranda"}
+              title={posts[0].title}
+              author={posts[0].author}
               date={"March, 14"}
+              source={posts[0].source}
+              imagePost={posts[0].imagePost}
+              avatar={posts[0].avatar}
             />
             <Card
-              title={"Pai e filha brigam por codigo"}
-              author={"Luna Miranda"}
+              title={posts[0].title}
+              author={posts[0].author}
               date={"March, 14"}
+              source={posts[0].source}
+              imagePost={posts[0].imagePost}
+              avatar={posts[0].avatar}
             />
           </div>
         </section>
