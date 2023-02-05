@@ -12,9 +12,12 @@ module.exports = {
         "blog-grey-100": "#B6B5B5",
         "blog-grey-300": "#616161",
         "blog-primary": "#0D5BD3",
-        "blog-secondary": "#07B2FA"
+        "blog-secondary": "#07B2FA",
+      },
+      fontFamily: {
+        Roboto: ["Roboto", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
