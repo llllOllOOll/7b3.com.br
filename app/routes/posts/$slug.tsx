@@ -3,6 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { getPost } from "~/models/post.server";
 import invariant from "tiny-invariant";
 import { marked } from "marked";
+import Navigator from "~/components/navigator/navigator";
 
 export const loader = async ({ params }: LoaderArgs) => {
   invariant(params.slug, `params.slug is required`);
@@ -17,9 +18,15 @@ export const loader = async ({ params }: LoaderArgs) => {
 export default function PostSlug() {
   const { post, html } = useLoaderData<typeof loader>();
   return (
-    <main className="mx-auto max-w-4xl">
-      <h1 className="my-6 border-b-2 text-center text-3xl">{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+    <main>
+      <Navigator />
+      <section className="p-6 flex justify-center items-center">
+        <div className="bg-neutral-200 w-full max-w-7xl">
+      <h1 className="my-6 text-left font-semibold text-3xl">{post.title}</h1>
+      <img className="w-28" src={post.imagePost} />
+      <div className="float-right" dangerouslySetInnerHTML={{ __html: html }} />
+      </div>
+      </section>
     </main>
   );
 }
