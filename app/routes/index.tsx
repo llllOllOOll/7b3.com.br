@@ -5,7 +5,7 @@ import Navigator from "~/components/navigator/navigator";
 import { getPosts } from "~/models/post.server";
 
 export const loader = async () => {
-  return json({ posts: await getPosts() });
+  return json({ posts: await getPosts(true) });
 };
 
 export default function Index() {
@@ -53,12 +53,12 @@ export default function Index() {
               avatar={posts[0].avatar}
             />
             <Card
-              title={posts[0].title}
-              author={posts[0].author}
+              title={posts[1].title}
+              author={posts[1].author}
               date={"March, 14"}
-              source={posts[0].source}
-              imagePost={posts[0].imagePost}
-              avatar={posts[0].avatar}
+              source={posts[1].source}
+              imagePost={posts[1].imagePost}
+              avatar={posts[1].avatar}
             />
           </div>
         </section>
