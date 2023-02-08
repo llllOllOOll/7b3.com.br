@@ -1,7 +1,8 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
 import Navigator from "~/components/navigator/navigator";
+import Video from "~/components/video/video";
 import { getPosts } from "~/models/post.server";
 
 export const loader = async () => {
@@ -23,16 +24,24 @@ export default function Index() {
               <div className="mt-40 mb-8">
                 <ul className="flex items-center justify-center space-x-3 ">
                   <li>
-                    <img src="images/twitter.png" />
+                    <Link to="https://twitter.com/1111O11OO11">
+                      <img src="images/twitter.png" />
+                    </Link>
                   </li>
                   <li>
-                    <img src="images/instagram.png" />
+                    <Link to="https://www.instagram.com/1111O11OO11/">
+                      <img src="images/instagram.png" />
+                    </Link>
                   </li>
                   <li>
+                    <Link to='https://www.youtube.com/@llllOllOOll'>
                     <img src="images/youtube.png" />
+                      </Link>
                   </li>
                   <li>
+                    <Link to="https://www.linkedin.com/in/llllollooll">
                     <img src="images/linkedin.png" />
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -67,18 +76,7 @@ export default function Index() {
             VIDEO RECENTE
           </h2>
           <div className="relative mx-auto  mt-16 max-w-7xl  px-16 ">
-            <div className="aspect-w-16 aspect-h-9 px-40">
-              <iframe
-                width="1904"
-                height="810"
-                src="https://www.youtube.com/embed/tbcveXCPqCA"
-                title="Explorando o Remix e os Padrões da Web: Aprenda a Usar a Fetch API"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
-            </div>
-          </div>
-          <div className="mt-8 text-center font-Roboto text-2xl text-slate-700 ">
-            Explorando o Remix e os Padrões da Web: Aprenda a Usar a Fetch API
+            <Video channelID={"UUZLKkUXgNv2RVCfJkazpM4A"} />
           </div>
         </section>
       </main>
