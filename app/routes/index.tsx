@@ -34,13 +34,13 @@ export default function Index() {
                     </Link>
                   </li>
                   <li>
-                    <Link to='https://www.youtube.com/@llllOllOOll'>
-                    <img src="images/youtube.png" />
-                      </Link>
+                    <Link to="https://www.youtube.com/@llllOllOOll">
+                      <img src="images/youtube.png" />
+                    </Link>
                   </li>
                   <li>
                     <Link to="https://www.linkedin.com/in/llllollooll">
-                    <img src="images/linkedin.png" />
+                      <img src="images/linkedin.png" />
                     </Link>
                   </li>
                 </ul>
@@ -57,6 +57,7 @@ export default function Index() {
               title={posts[0].title}
               author={posts[0].author}
               date={"March, 14"}
+              slug={posts[0].slug}
               source={posts[0].source}
               imagePost={posts[0].imagePost}
               avatar={posts[0].avatar}
@@ -64,6 +65,7 @@ export default function Index() {
             <Card
               title={posts[1].title}
               author={posts[1].author}
+              slug={posts[1].slug}
               date={"March, 14"}
               source={posts[1].source}
               imagePost={posts[1].imagePost}
