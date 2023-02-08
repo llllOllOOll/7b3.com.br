@@ -1,5 +1,5 @@
 import { json, LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { getPost } from "~/models/post.server";
 import invariant from "tiny-invariant";
 import { marked } from "marked";
@@ -18,15 +18,33 @@ export const loader = async ({ params }: LoaderArgs) => {
 export default function PostSlug() {
   const { post, html } = useLoaderData<typeof loader>();
   return (
-    <main>
-      <Navigator />
-      <section className="p-6 flex justify-center items-center">
-        <div className="bg-neutral-200 w-full max-w-7xl">
-      <h1 className="my-6 text-left font-semibold text-3xl">{post.title}</h1>
-      <img className="w-28" src={post.imagePost} />
-      <div className="float-right" dangerouslySetInnerHTML={{ __html: html }} />
+    <main className="flex min-h-screen flex-col items-center ">
+      <div className="w-full bg-gradient-to-r from-blog-primary to-blog-secondary">
+        <Navigator />
+        <div className=" relative w-full bg-gray-200">
+          <section className=" absolute inset-0 mx-auto mt-16 w-full max-w-7xl">
+            <div>
+              <h1 className="font-Roboto text-4xl">{post.title}</h1>
+              <p className="mt-8 font-Roboto">{post.createdAt}</p>
+              <div className="flex  justify-start">
+                <div className="mt-8">
+                  <img className="h-9 w-9 rounded-full" src={post.avatar} />
+                </div>
+                <div>
+                  <div className="mt-4">{post.author}</div>
+                  <div>
+                    <Link
+                      to={post.source}
+                    >{`@${post.author.toLowerCase()}`}</Link>
+                  </div>
+                </div>
+              </div>
+              <img className="mt-8" src={post.imagePost} />
+              <div className="p-8" dangerouslySetInnerHTML={{ __html: html }} />
+            </div>
+          </section>
+        </div>
       </div>
-      </section>
     </main>
   );
 }
