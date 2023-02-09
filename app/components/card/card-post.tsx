@@ -29,7 +29,9 @@ export default function Card({
           />
         </Link>
       </div>
-      <p>{source}</p>
+      <p>
+        <Link to={source}>source: {author}</Link>
+      </p>
       <h2 className="max-w-sm text-lg">{title}</h2>
       <div className="flex items-center space-x-3 text-sm">
         <img className="h-10 w-10 rounded-full" src={avatar} />
