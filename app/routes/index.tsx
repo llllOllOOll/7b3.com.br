@@ -82,8 +82,8 @@ export default function Index() {
           </div>
         </section>
       </main>
-      <footer className="">
-        <div className="flex h-80 items-center justify-center bg-blog-black-700 text-center text-white">
+      <footer >
+        <div className="flex h-48 items-center justify-center bg-blog-black-700 text-center text-white">
           © IIIIOIIOOII | Seven, Júlia e Luna, 2023
         </div>
       </footer>
