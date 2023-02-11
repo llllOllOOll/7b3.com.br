@@ -21,11 +21,11 @@ export default function Card({
 }: CardProps) {
   return (
     <div className="w-full space-y-3 rounded-lg bg-gray-100 p-6 shadow-md">
-      <div className="relative h-64 max-w-lg bg-gray-500">
+      <div className="relative h-0 pb-[56.25%]">
         <Link to={`/posts/${slug}`}>
           <img
             alt=""
-            className="absolute inset-0 h-full w-full object-fill"
+            className="absolute inset-0 h-full w-full"
             src={imagePost}
           />
         </Link>
@@ -36,6 +36,7 @@ export default function Card({
       <h2 className="hidden max-w-sm text-lg">{title}</h2>
       <div className="flex items-center space-x-3 text-sm">
         <img
+          alt=""
           className="h-10 w-10 rounded-full"
           src={avatar}
         />
