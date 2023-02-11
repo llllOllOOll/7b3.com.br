@@ -24,17 +24,21 @@ export default function Card({
       <div className="relative h-64 max-w-lg bg-gray-500">
         <Link to={`/posts/${slug}`}>
           <img
+            alt=""
             className="absolute inset-0 h-full w-full object-fill"
             src={imagePost}
           />
         </Link>
       </div>
-      <p>
+      <p className="hidden">
         <Link to={source}>source: {author}</Link>
       </p>
-      <h2 className="max-w-sm text-lg">{title}</h2>
+      <h2 className="hidden max-w-sm text-lg">{title}</h2>
       <div className="flex items-center space-x-3 text-sm">
-        <img className="h-10 w-10 rounded-full" src={avatar} />
+        <img
+          className="h-10 w-10 rounded-full"
+          src={avatar}
+        />
         <div>
           <p>{author}</p>
           <p>{date}</p>

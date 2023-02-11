@@ -1,12 +1,21 @@
 export default function Navigator() {
   return (
-    <header className="flex items-center justify-center">
-      <nav className="flex w-full max-w-7xl items-center  justify-between py-4 px-40">
-        <div>
-          <img src="/images/binary.svg" />
+    <header>
+      <nav className="mx-auto mt-4 max-w-5xl items-center justify-between px-5 sm:flex sm:w-full">
+        <div className="flex justify-between ">
+          <img
+            alt="logo binary"
+            className="h-5 sm:h-6  "
+            src="/images/binary.svg"
+          />
+          <img
+            alt="menu"
+            className="h-5 sm:hidden"
+            src="/images/menu.png"
+          />
         </div>
-        <div>
-          <ul className="flex space-x-16 text-white">
+        <div className="hidden sm:block">
+          <ul className="flex   space-x-16  text-white ">
             <li>
               <a href="/">Home</a>
             </li>
@@ -14,10 +23,7 @@ export default function Navigator() {
               <a href="/posts">Artigos</a>
             </li>
             <li>
-              <a href="#">Login</a>
-            </li>
-            <li>
-              <a href="#">Sign Up</a>
+              <a href="/">Login</a>
             </li>
           </ul>
         </div>

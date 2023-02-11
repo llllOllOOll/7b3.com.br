@@ -1,5 +1,8 @@
-
-export default function Video({ channelID }:{channelID:string}) {
+export default function Video({
+  channelID,
+}: {
+  channelID: string;
+}) {
   return (
     <div className="relative h-0 pb-[56.25%]">
       <iframe
