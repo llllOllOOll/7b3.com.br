@@ -30,10 +30,12 @@ export default function Card({
           />
         </Link>
       </div>
-      <p className="hidden">
+      <p className="hidden sm:block">
         <Link to={source}>source: {author}</Link>
       </p>
-      <h2 className="hidden max-w-sm text-lg">{title}</h2>
+      <h2 className="hidden max-w-sm text-lg sm:block">
+        {title}
+      </h2>
       <div className="flex items-center space-x-3 text-sm">
         <img
           alt=""
