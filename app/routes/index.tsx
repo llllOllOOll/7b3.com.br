@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
+import Footer from "~/components/footer/footer";
 import Navigator from "~/components/navigator/navigator";
 import Video from "~/components/video/video";
 import { getPosts } from "~/models/post.server";
@@ -96,11 +97,7 @@ export default function Index() {
           <Video channelID={"UUZLKkUXgNv2RVCfJkazpM4A"} />
         </div>
       </section>
-      <footer className="">
-        <div className="mx-auto bg-slate-800  py-8  text-center text-white">
-          © IIIIOIIOOII | Seven, Júlia e Luna, 2023
-        </div>
-      </footer>
+        <Footer />
     </>
   );
 }

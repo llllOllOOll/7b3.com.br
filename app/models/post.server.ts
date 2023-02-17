@@ -1,6 +1,14 @@
 import { prisma } from "~/db.server";
 import type { Post } from "@prisma/client";
 
+export async function getPostsReverse() {
+    return prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      }
+    });
+  }
+
 export async function getPosts(limit?: boolean) {
   if (limit) {
     return prisma.post.findMany({
