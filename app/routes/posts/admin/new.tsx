@@ -1,9 +1,10 @@
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 
 import { createPost } from "~/models/post.server";
+import { authenticator } from "~/session.server";
 
 export const action = async ({ request }: ActionArgs) => {
   await new Promise((res) => setTimeout(res, 1000));
@@ -16,6 +17,10 @@ export const action = async ({ request }: ActionArgs) => {
   const source = formData.get("source");
   const imagePost = formData.get("imagePost");
   const avatar = formData.get("avatar");
+  const authorId = await authenticator.getUserIDFromSession(request)
+  const email = await authenticator.getUserEmailFromSession(request)
+
+  console.log(email)
 
   const errors = {
     title: title ? null : "Title is required",
@@ -38,8 +43,10 @@ export const action = async ({ request }: ActionArgs) => {
   invariant(typeof source === "string", "source must be a string");
   invariant(typeof imagePost === "string", "image must be a string");
   invariant(typeof avatar === "string", "avatar must be a string");
+  invariant(typeof authorId === "string", "authorId must be a string");
+  invariant(typeof email === "string", "email must be a string");
 
-  await createPost({ title, slug, markdown, author, source, imagePost, avatar });
+  await createPost({ title, slug, markdown, author, source, imagePost, avatar, authorId, email });
 
   return redirect("/posts/admin");
 };

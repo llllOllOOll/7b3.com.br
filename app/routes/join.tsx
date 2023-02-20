@@ -59,6 +59,7 @@ export async function action({ request }: ActionArgs) {
   return createUserSession({
     request,
     userId: user.id,
+    userEmail: user.email,
     remember: false,
     redirectTo,
   });
