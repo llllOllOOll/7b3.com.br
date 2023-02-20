@@ -1,10 +1,16 @@
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import {
+  createCookieSessionStorage,
+  redirect,
+} from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import type { User } from "~/models/user.server";
 import { getUserById } from "~/models/user.server";
 
-invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
+invariant(
+  process.env.SESSION_SECRET,
+  "SESSION_SECRET must be set"
+);
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -18,6 +24,49 @@ export const sessionStorage = createCookieSessionStorage({
 });
 
 const USER_SESSION_KEY = "userId";
+
+class Authenticator {
+  isAuthenticated = async (
+    request: Request,
+    // options?: {
+    //   sucessRedirect?: string;
+    //   failureRedirect?: never;
+    // },
+    redirectTo: string = new URL(request.url).pathname
+  ) => {
+    const userId = await this.getUserIDFromSession(request);
+
+    if (!userId) {
+      const searchParams = new URLSearchParams([
+        ["redirectTo", redirectTo],
+      ]);
+      throw redirect(`/login?${searchParams}`);
+    }
+
+    return userId;
+  };
+
+  getUserIDFromSession = async (
+    request: Request
+  ): Promise<User["id"] | undefined> => {
+    const session = await sessionStorage.getSession(
+      request.headers.get("Cookie")
+    );
+    return session.get(USER_SESSION_KEY);
+  };
+
+  getUserFromDataBase = async (request: Request) => {
+    const userID = await this.getUserIDFromSession(request);
+    if (userID === undefined) return null;
+
+    const user = await getUserById(userID);
+    if (user) return user;
+
+    throw await logout(request);
+  };
+}
+
+export const authenticator = new Authenticator();
 
 export async function getSession(request: Request) {
   const cookie = request.headers.get("Cookie");
@@ -48,14 +97,18 @@ export async function requireUserId(
 ) {
   const userId = await getUserId(request);
   if (!userId) {
-    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
-    throw redirect(`/login?${searchParams}`);
+    const searchParams = new URLSearchParams([
+      ["redirectTo", redirectTo],
+    ]);
+
+    return redirect(`/login?${searchParams}`);
+    //throw redirect(`/login?${searchParams}`);
   }
   return userId;
 }
 
 export async function requireUser(request: Request) {
-  const userId = await requireUserId(request);
+  const userId = (await requireUserId(request)) as string;
 
   const user = await getUserById(userId);
   if (user) return user;
@@ -78,11 +131,14 @@ export async function createUserSession({
   session.set(USER_SESSION_KEY, userId);
   return redirect(redirectTo, {
     headers: {
-      "Set-Cookie": await sessionStorage.commitSession(session, {
-        maxAge: remember
-          ? 60 * 60 * 24 * 7 // 7 days
-          : undefined,
-      }),
+      "Set-Cookie": await sessionStorage.commitSession(
+        session,
+        {
+          maxAge: remember
+            ? 60 * 60 * 24 * 7 // 7 days
+            : undefined,
+        }
+      ),
     },
   });
 }
@@ -91,7 +147,9 @@ export async function logout(request: Request) {
   const session = await getSession(request);
   return redirect("/", {
     headers: {
-      "Set-Cookie": await sessionStorage.destroySession(session),
+      "Set-Cookie": await sessionStorage.destroySession(
+        session
+      ),
     },
   });
 }

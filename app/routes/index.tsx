@@ -1,12 +1,17 @@
-import { json } from "@remix-run/node";
+import { json, LoaderArgs } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
 import Footer from "~/components/footer/footer";
 import Navigator from "~/components/navigator/navigator";
 import Video from "~/components/video/video";
 import { getPosts } from "~/models/post.server";
+import {
+  authenticator,
+  requireUserId,
+} from "~/session.server";
 
-export const loader = async () => {
+export const loader = async ({ request }: LoaderArgs) => {
+  // await  authenticator.isAuthenticated(request);
   return json({ posts: await getPosts(true) });
 };
 
@@ -97,7 +102,7 @@ export default function Index() {
           <Video channelID={"UUZLKkUXgNv2RVCfJkazpM4A"} />
         </div>
       </section>
-        <Footer />
+      <Footer />
     </>
   );
 }

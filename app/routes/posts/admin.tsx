@@ -1,4 +1,5 @@
-import { json, LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   Link,
   useLoaderData,
@@ -7,11 +8,11 @@ import {
 } from "@remix-run/react";
 
 import { getPosts } from "~/models/post.server";
-import { requireUserId } from "~/session.server";
+import { authenticator } from "~/session.server";
 import { useUser } from "~/utils";
 
 export async function loader({ request }: LoaderArgs) {
-  const userId = await requireUserId(request);
+  await authenticator.isAuthenticated(request);
   return json({ posts: await getPosts() });
 }
 
