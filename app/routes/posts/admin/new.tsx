@@ -1,7 +1,14 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type {
+  ActionArgs,
+  LoaderArgs,
+} from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { json, redirect } from "@remix-run/node";
-import { Form, useActionData, useTransition } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useTransition,
+} from "@remix-run/react";
 
 import { createPost } from "~/models/post.server";
 import { authenticator } from "~/session.server";
@@ -17,10 +24,14 @@ export const action = async ({ request }: ActionArgs) => {
   const source = formData.get("source");
   const imagePost = formData.get("imagePost");
   const avatar = formData.get("avatar");
-  const authorId = await authenticator.getUserIDFromSession(request)
-  const email = await authenticator.getUserEmailFromSession(request)
+  const authorId = await authenticator.getUserIDFromSession(
+    request
+  );
+  const email = await authenticator.getUserEmailFromSession(
+    request
+  );
 
-  console.log(email)
+  console.log(email);
 
   const errors = {
     title: title ? null : "Title is required",
@@ -31,23 +42,61 @@ export const action = async ({ request }: ActionArgs) => {
     imagePost: imagePost ? null : "Image is required",
     avatar: avatar ? null : "Avatar is required",
   };
-  const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
+  const hasErrors = Object.values(errors).some(
+    (errorMessage) => errorMessage
+  );
   if (hasErrors) {
     return json(errors);
   }
 
-  invariant(typeof title === "string", "title must be a string");
-  invariant(typeof slug === "string", "slug must be a string");
-  invariant(typeof markdown === "string", "markdown must be a string");
-  invariant(typeof author === "string", "author must be a string");
-  invariant(typeof source === "string", "source must be a string");
-  invariant(typeof imagePost === "string", "image must be a string");
-  invariant(typeof avatar === "string", "avatar must be a string");
-  invariant(typeof authorId === "string", "authorId must be a string");
-  invariant(typeof email === "string", "email must be a string");
+  invariant(
+    typeof title === "string",
+    "title must be a string"
+  );
+  invariant(
+    typeof slug === "string",
+    "slug must be a string"
+  );
+  invariant(
+    typeof markdown === "string",
+    "markdown must be a string"
+  );
+  invariant(
+    typeof author === "string",
+    "author must be a string"
+  );
+  invariant(
+    typeof source === "string",
+    "source must be a string"
+  );
+  invariant(
+    typeof imagePost === "string",
+    "image must be a string"
+  );
+  invariant(
+    typeof avatar === "string",
+    "avatar must be a string"
+  );
+  invariant(
+    typeof authorId === "string",
+    "authorId must be a string"
+  );
+  invariant(
+    typeof email === "string",
+    "email must be a string"
+  );
 
-  await createPost({ title, slug, markdown, author, source, imagePost, avatar, authorId, email });
-
+  await createPost({
+    title,
+    slug,
+    markdown,
+    author,
+    source,
+    imagePost,
+    avatar,
+    authorId,
+    email,
+  });
   return redirect("/posts/admin");
 };
 
@@ -60,14 +109,18 @@ export default function NewPost() {
   const isCreating = Boolean(transition.submission);
 
   return (
-    <Form method="post">
+    <Form className="w-full max-w-7xl px-8" method="post">
       <p>
         <label>
           Post Title:{" "}
           {errors?.title ? (
             <em className="text-red-600">{errors.title}</em>
           ) : null}
-          <input type="text" name="title" className={inputClassName} />
+          <input
+            type="text"
+            name="title"
+            className={inputClassName}
+          />
         </label>
       </p>
 
@@ -75,62 +128,91 @@ export default function NewPost() {
         <label>
           Post Author:{" "}
           {errors?.author ? (
-            <em className="text-red-600">{errors.author}</em>
+            <em className="text-red-600">
+              {errors.author}
+            </em>
           ) : null}
-          <input type="text" name="author" className={inputClassName} />
+          <input
+            type="text"
+            name="author"
+            className={inputClassName}
+          />
         </label>
-        </p>
+      </p>
 
       <p>
         <label>
           Post Source:{" "}
           {errors?.source ? (
-            <em className="text-red-600">{errors.source}</em>
+            <em className="text-red-600">
+              {errors.source}
+            </em>
           ) : null}
-          <input type="url" name="source" className={inputClassName} />
+          <input
+            type="url"
+            name="source"
+            className={inputClassName}
+          />
         </label>
-        </p>
+      </p>
 
       <p>
         <label>
           Post Image:{" "}
           {errors?.imagePost ? (
-            <em className="text-red-600">{errors.imagePost}</em>
+            <em className="text-red-600">
+              {errors.imagePost}
+            </em>
           ) : null}
-          <input type="url" name="imagePost" className={inputClassName} />
+          <input
+            type="url"
+            name="imagePost"
+            className={inputClassName}
+          />
         </label>
-        </p>
-
+      </p>
 
       <p>
         <label>
           Post Avatar:{" "}
           {errors?.avatar ? (
-            <em className="text-red-600">{errors.avatar}</em>
+            <em className="text-red-600">
+              {errors.avatar}
+            </em>
           ) : null}
-          <input type="url" name="avatar" className={inputClassName} />
+          <input
+            type="url"
+            name="avatar"
+            className={inputClassName}
+          />
         </label>
-        </p>
+      </p>
       <p>
         <label>
           Post Slug:{" "}
           {errors?.slug ? (
             <em className="text-red-600">{errors.slug}</em>
           ) : null}
-          <input type="text" name="slug" className={inputClassName} />
+          <input
+            type="text"
+            name="slug"
+            className={inputClassName}
+          />
         </label>
       </p>
       <p>
         <label htmlFor="markdown">
           Markdown:{" "}
           {errors?.markdown ? (
-            <em className="text-red-600">{errors.markdown}</em>
+            <em className="text-red-600">
+              {errors.markdown}
+            </em>
           ) : null}
         </label>
         <br />
         <textarea
           id="markdown"
-          rows={20}
+          rows={15}
           name="markdown"
           className={`${inputClassName} font-mono`}
         />
