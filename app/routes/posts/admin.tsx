@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import { LoaderArgs, redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   Link,
@@ -10,26 +10,27 @@ import Footer from "~/components/footer/footer";
 import Navigator from "~/components/navigator/navigator";
 
 import { getPosts } from "~/models/post.server";
-import { authenticator } from "~/session.server";
+import { authenticator } from "~/modules/auth/auth.server";
 import { useUser } from "~/utils";
 
 export async function loader({ request }: LoaderArgs) {
-  await authenticator.isAuthenticated(request);
-  return json({ posts: await getPosts() });
+  const result = await authenticator.isAuthenticated(
+    request
+  );
+  if (!result) return redirect("/login");
+  return json({});
 }
 
 export default function PostAdmin() {
   const { posts } = useLoaderData<typeof loader>();
-  const user = useUser();
+  const user = "noat"; // useUser();
   return (
     <>
       <div>
-        <Navigator />
         <div className="h-screen bg-white px-8">
           <main>
-            <div className="mx-auto w-full max-w-6xl py-8">
-              <Outlet />
-            </div>
+            <Outlet />
+            <div className="mx-auto w-full max-w-6xl py-8"></div>
           </main>
           <Form
             className="hidden"

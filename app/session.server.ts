@@ -125,27 +125,25 @@ export async function requireUser(request: Request) {
   throw await logout(request);
 }
 
-const EMAIL_SESSION_KEY = "userEmail"
- 
+const EMAIL_SESSION_KEY = "userEmail";
+
 export async function createUserSession({
   request,
   userId,
   userEmail,
   remember,
   redirectTo,
-
 }: {
   request: Request;
   userId: string;
   userEmail: string;
   remember: boolean;
   redirectTo: string;
-})
-{
+}) {
   const session = await getSession(request);
   session.set(USER_SESSION_KEY, userId);
-  session.set(EMAIL_SESSION_KEY, userEmail)
-  console.log("email", userEmail)
+  session.set(EMAIL_SESSION_KEY, userEmail);
+  console.log("email", userEmail);
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(

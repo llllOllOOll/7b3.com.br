@@ -2,7 +2,6 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
 import Footer from "~/components/footer/footer";
-import Navigator from "~/components/navigator/navigator";
 import { getPostsReverse } from "~/models/post.server";
 
 export const loader = async () => {
@@ -13,9 +12,6 @@ export default function Posts() {
   const { posts } = useLoaderData<typeof loader>();
   return (
     <>
-      <header>
-        <Navigator />
-      </header>
       <main className="bg-white">
         <section className="mx-auto max-w-6xl py-10">
           <ul className="space-y-10">

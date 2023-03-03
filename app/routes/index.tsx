@@ -1,18 +1,22 @@
-import { json, LoaderArgs } from "@remix-run/node";
+import {
+  json,
+  LoaderArgs,
+  redirect,
+} from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import Card from "~/components/card/card-post";
 import Footer from "~/components/footer/footer";
 import Navigator from "~/components/navigator/navigator";
 import Video from "~/components/video/video";
 import { getPosts } from "~/models/post.server";
-import {
-  authenticator,
-  requireUserId,
-} from "~/session.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  // await  authenticator.isAuthenticated(request);
-  return json({ posts: await getPosts(true) });
+  const posts = await getPosts(true);
+
+  if (Array.isArray(posts) && !posts.length)
+    return redirect("/posts/admin");
+
+  return json({ posts: posts });
 };
 
 export default function Index() {
@@ -21,7 +25,6 @@ export default function Index() {
     <>
       <main className="px-6">
         <div>
-          <Navigator />
           <section className="mt-24 lg:mt-48">
             <div>
               <img

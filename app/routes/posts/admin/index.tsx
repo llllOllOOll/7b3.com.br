@@ -1,4 +1,6 @@
+import { json, LoaderArgs } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { authenticator } from "~/modules/auth/auth.server";
 
 export default function AdminIndex() {
   return (
@@ -11,4 +13,9 @@ export default function AdminIndex() {
       </Link>
     </p>
   );
+}
+
+export async function loader({ request }: LoaderArgs) {
+  await authenticator.isAuthenticated(request);
+  return json({});
 }

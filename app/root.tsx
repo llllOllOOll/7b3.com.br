@@ -14,7 +14,9 @@ import {
 } from "@remix-run/react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
-import { getUser } from "./session.server";
+import type { ReactNode } from "react";
+import Navigator from "./components/navigator/navigator";
+import { userLogin } from "./modules/auth/user.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -32,13 +34,24 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export async function loader({ request }: LoaderArgs) {
-  return json({
-    user: await getUser(request),
-  });
-}
+// export async function loader({ request }: LoaderArgs) {
+//   return json({
+//     user: getUser(request),
+//   });
+// }
 
 export default function App() {
+  return (
+    <>
+      <Document>
+        <Navigator />
+        <Outlet />
+      </Document>
+    </>
+  );
+}
+
+function Document({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="h-full">
       <head>
@@ -46,7 +59,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full  bg-gradient-to-r from-blog-primary to-blog-secondary">
-        <Outlet />
+        {children}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

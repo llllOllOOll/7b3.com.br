@@ -1,6 +1,6 @@
 export default function Navigator() {
   return (
-    <header className="mt-4 mb-4">
+    <header className="px-6 mt-4 mb-4">
       <nav className="mx-auto max-w-6xl sm:flex sm:items-center sm:justify-between">
         <div className="flex justify-between">
           <a href="/">
@@ -24,7 +24,7 @@ export default function Navigator() {
             <a href="/posts">Artigos</a>
           </li>
           <li>
-            <a href="/">Login</a>
+            <a href="/login">Login</a>
           </li>
         </ul>
       </nav>

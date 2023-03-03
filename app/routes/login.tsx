@@ -12,13 +12,9 @@ import {
 } from "@remix-run/react";
 import * as React from "react";
 
-import {
-  authenticator,
-  createUserSession,
-} from "~/session.server";
-import { verifyLogin } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
 
+import { authenticator } from "~/modules/auth/auth.server";
 export async function loader({ request }: LoaderArgs) {
   // const userId = await getUserId(request);
   // if (userId) return redirect("/");
@@ -27,6 +23,8 @@ export async function loader({ request }: LoaderArgs) {
   //   request
   // );
   // if (userID) redirect("/");
+
+  await authenticator.isAuthenticated(request);
   return json({});
 }
 
@@ -36,7 +34,7 @@ export async function action({ request }: ActionArgs) {
   const password = formData.get("password");
   const redirectTo = safeRedirect(
     formData.get("redirectTo"),
-    "/notes"
+    "/posts/admin"
   );
   const remember = formData.get("remember");
 
@@ -79,7 +77,8 @@ export async function action({ request }: ActionArgs) {
     );
   }
 
-  const user = await verifyLogin(email, password);
+  //const user = await verifyLogin(email, password);
+  const user = await authenticator.login(email, password);
 
   if (!user) {
     return json(
@@ -93,9 +92,9 @@ export async function action({ request }: ActionArgs) {
     );
   }
 
-  return createUserSession({
+  return authenticator.createUserSession({
     request,
-    userId: user.id,
+    userID: user.id,
     userEmail: user.email,
     remember: remember === "on" ? true : false,
     redirectTo,
@@ -111,7 +110,7 @@ export const meta: MetaFunction = () => {
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const redirectTo =
-    searchParams.get("redirectTo") || "/notes";
+    searchParams.get("redirectTo") || "/posts/admin";
   const actionData = useActionData<typeof action>();
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);

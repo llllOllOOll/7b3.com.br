@@ -19,9 +19,6 @@ export default function PostSlug() {
   const { post, html } = useLoaderData<typeof loader>();
   return (
     <>
-      <div className="px-6">
-        <Navigator />
-      </div>
       <main className="">
         <div className="">
           <section className="bg-white">
